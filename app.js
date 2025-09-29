@@ -1,4 +1,4 @@
-const API_KEY = '3fd2be6f0c70a2a598f084ddfb75487c';
+const API_KEY = window.TMDB_API_KEY;
 const API_URL = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}&page=1`;
 const TRENDING_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`;
 const TOP_RATED_URL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&page=1`;
