@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Davie Trailers — Results</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html" class="brand" style="text-decoration:none; color:inherit;"><span>Davie</span> Trailers</a>
+    <form id="form">
+      <input type="text" id="search" class="search-input" placeholder="Search movies..." />
+      <button type="submit" style="display:none">Search</button>
+    </form>
+  </nav>
+
+  <section class="rows" style="padding-top:72px;">
+    <div class="row">
+      <h3 class="row-title"><button class="back-arrow" id="backArrow" aria-label="Back">←</button> <span id="resultsTitle">Results</span></h3>
+      <div class="row-scroller" id="resultsGrid"></div>
+    </div>
+  </section>
+
+  <div class="modal" id="trailerModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeTrailer()">&times;</span>
+      <iframe id="trailerFrame" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="details-modal" id="detailsModal">
+    <div class="details-card">
+      <div class="details-banner" id="detailsBanner"></div>
+      <div class="details-content">
+        <span class="details-close" id="detailsClose">&times;</span>
+        <h3 class="details-title" id="detailsTitle"></h3>
+        <div class="details-meta" id="detailsMeta"></div>
+        <div class="details-cast" id="detailsCast"></div>
+        <div class="details-actions">
+          <button class="btn btn-primary" id="detailsPlay">Play Trailer</button>
+          <button class="btn btn-secondary" id="detailsDismiss">Close</button>
+          <button class="btn" id="detailsBackHome">Back to Home</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="results.js" defer></script>
+</body>
+</html>
+
+
