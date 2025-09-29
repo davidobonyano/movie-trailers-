@@ -21,8 +21,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create env.js from secret
-        run: echo "window.TMDB_API_KEY='${{ secrets.TMDB_API_KEY }}';" > "dave movie trailer/env.js"
+      - name: Determine site directory and create env.js from secret
+        id: detect_dir
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -d "dave movie trailer" ]; then
+            SITE_DIR="dave movie trailer"
+          elif [ -f "index.html" ]; then
+            SITE_DIR="."
+          else
+            # Try to find a directory containing index.html
+            SITE_DIR=$(git ls-files | grep -iE 'index\.html$' | head -n1 | xargs -r dirname)
+            if [ -z "$SITE_DIR" ]; then
+              echo "Could not locate site directory (no index.html found)." >&2
+              exit 1
+            fi
+          fi
+          echo "Using SITE_DIR=$SITE_DIR"
+          mkdir -p "$SITE_DIR"
+          echo "window.TMDB_API_KEY='${{ secrets.TMDB_API_KEY }}';" > "$SITE_DIR/env.js"
+          echo "path=$SITE_DIR" >> "$GITHUB_OUTPUT"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -30,7 +49,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "dave movie trailer"
+          path: ${{ steps.detect_dir.outputs.path }}
 
       - name: Deploy to GitHub Pages
         id: deployment
